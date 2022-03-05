@@ -9,7 +9,7 @@ Just clone the repo and run the app
 
 **I accidentally deleted generated files**
 
-Step 1: [protc](https://grpc.io/docs/protoc-installation/)
+Step 1: Install [protc](https://grpc.io/docs/protoc-installation/)
 
 Step 2:
 ```
