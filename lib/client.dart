@@ -6,8 +6,8 @@ class PingPongClient {
 
   late final stub = PingServerClient(channel);
 
-  Future<String> ping() async {
-    final res = await stub.doPing(Ping(greetings: "Hello"));
+  Future<String> ping(String greeting) async {
+    final res = await stub.doPing(Ping(greetings: greeting));
 
     return res.acknowledgement;
   }

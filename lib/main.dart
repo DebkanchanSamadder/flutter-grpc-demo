@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late final client = PingPongClient();
   String? response;
+  String? greeting;
 
   @override
   Widget build(BuildContext context) {
@@ -39,24 +40,40 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            response != null
-                ? Text(
-                    response!,
-                    style: Theme.of(context).textTheme.headline4,
-                  )
-                : Container(),
-            ElevatedButton(
-              onPressed: () async {
-                response = await client.ping();
-                setState(() {});
-              },
-              child: const Text('Send Hello'),
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              response != null
+                  ? Text(
+                      response!,
+                      style: Theme.of(context).textTheme.headline4,
+                    )
+                  : Container(),
+              TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter a greeting',
+                ),
+                onChanged: (String value) {
+                  setState(() {
+                    greeting = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: greeting != null && greeting!.isNotEmpty
+                    ? () async {
+                        response = await client.ping(greeting!);
+                        setState(() {});
+                      }
+                    : null,
+                child: const Text('Send Greeting'),
+              ),
+            ],
+          ),
         ),
       ),
     );
